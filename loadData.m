@@ -12,6 +12,16 @@ if ~isfolder(dogDirectory)
     return;
 end
 
+dogFile = dir(fullfile(dogDirectory, 'name*.jpg'));
+totalDogImages = numel(dogFile);
+
+for n = 1:totalImages
+    f = fullfile(ImageFolder, fileName(n).name);
+    dogImages = imread(f);
+    figure(n);
+    imshow(dogImages);
+end
+
 #Find and save the directory path dynamically for the BEACH image set
 beachDirectory = (strcat(projectDirectory,'\beachSampleSet'));
 #Test to make sure the folder loaded properly
