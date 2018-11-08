@@ -19,8 +19,8 @@ totalDogImages = numel(dogFile);
 for n = 1:totalDogImages
     d = fullfile(dogDirectory, dogFile(n).name);
     dogImages = imread(d); %Reads the folder of dog images
-    [J, rect] = imcrop(dogImages); %Allows the user to crop(square) the images
-    resizedImg = imresize(J, [227 227]); %Change the image dimensions
+    %[J, rect] = imcrop(dogImages); %Allows the user to crop(square) the images
+    resizedImg = imresize(dogImages, [227 227]); %Change the image dimensions
     
     figure (n);
     newDogFolder = fullfile(dogDirectory, sprintf('Dog #%d.png', n)); %Save the edited images
@@ -43,8 +43,8 @@ totalBeachImages = numel(beachFile);
 for n = 1:totalBeachImages
     b = fullfile(beachDirectory, beachFile(n).name);
     beachImages = imread(b); %Reads the folder of beach images
-    [J, rect] = imcrop(beachImages); %Allows the user to crop(square) the images
-    resizedImg = imresize(J, [227 227]); %Change the image dimensions
+    %[J, rect] = imcrop(beachImages); %Allows the user to crop(square) the images
+    resizedImg = imresize(beachImages, [227 227]); %Change the image dimensions
     
     figure (n);
     newBeachFolder = fullfile(beachDirectory, sprintf('Beach #%d.png', n)); %Save the edited images
