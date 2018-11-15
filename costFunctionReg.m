@@ -13,7 +13,7 @@ grad = zeros(size(theta));
     %compute predictions
     prediction = sigmoid(X * theta);
     
-    #regularization component
+    %regularization component
     regOffset = (lambda/(2*m)) * sum(theta(2:size(theta)) .^ 2);
 
     %compute cost and return
