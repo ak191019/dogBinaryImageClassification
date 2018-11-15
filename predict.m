@@ -8,7 +8,7 @@ m = size(X, 1); % Number of training examples
 
 p = zeros(m, 1);
 
-prediction = sigmoid(X * theta);
+prediction = sigmoid(X * theta)
 
 for i= 1:m
   if prediction(i) >= .5
