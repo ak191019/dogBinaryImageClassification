@@ -1,0 +1,7 @@
+dataDog = load('datafile.mat', 'dogImgSet');
+dataNotDog = load('datafile.mat', 'beachImgSet');
+size(dataDog.dogImgSet)
+size(dataNotDog.beachImgSet)
+X = [dataDog.dogImgSet;dataNotDog.beachImgSet];
+y
+y = [(ones(1:50));(zeros(1:50))];
