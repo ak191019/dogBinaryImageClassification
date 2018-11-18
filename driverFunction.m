@@ -19,10 +19,8 @@ end
 
 %hold on;
 %Put labels
-%xlabel('Dog')
-%ylabel ('NotDog')
-
-%legend('y = 1', 'y = 0')
+%xlabel('Cost')
+%ylabel ('Number of Iterations')
 %hold off; 
 
 p = predict(theta, X);
