@@ -9,6 +9,7 @@ m = length(y); % number of training examples
 
 J = 0;
 grad = zeros(size(theta));
+alpha = .01;
 
     %compute predictions
     prediction = sigmoid(X * theta);
@@ -23,9 +24,10 @@ grad = zeros(size(theta));
     error = (prediction - y);
     
     %compute gradient
-    grad = (1/m) * sum((X' * error),2) + (lambda/m).*theta;
-    %adjust theta zero
-    grad(1) = grad(1) - (lambda/m)*theta(1);
+    grad(1) = theta(1) - (alpha/m)*sum(error.*X(:,1)); 
+    grad(2:end)= theta(2:end) - ((alpha/m)*(error'*X(:,2:end)))'+(lambda/m)*theta(2:end);
+    
+    grad = grad(:);
 
 % =============================================================
 
