@@ -1,8 +1,13 @@
-dataDog = load('datafile.mat', 'dogTrainingImgSet');
-dataNotDog = load('datafile.mat', 'catTrainingImgSet');
-X = [dataDog.dogTrainingImgSet;dataNotDog.catTrainingImgSet];
+dataDogTraining = load('datafile.mat', 'dogTrainingImgSet');
+dataNotDogTraining = load('datafile.mat', 'catTrainingImgSet');
+dataDogTest = load('datafile.mat', 'dogTestImgSet');
+dataNotDogTest = load('datafile.mat', 'catTestImgSet');
+X = [dataDogTraining.dogTrainingImgSet;dataNotDogTraining.catTrainingImgSet];
 X = [ones(size(X,1),1) X];
 y = [ones(100,1);zeros(100,1)];
+
+XTest = [dataDogTest.dogTestImgSet;dataNotDogTest.catTestImgSet];
+XTest = [ones(size(XTest,1),1) XTest];
 
 theta = zeros(size(X,2),1);
 lambda = 1;
@@ -25,7 +30,7 @@ end
 %ylabel ('Number of Iterations')
 %hold off; 
 
-p = predict(theta, X);
+p = predict(theta, XTest);
 
 count = 0;
 for i=1:100

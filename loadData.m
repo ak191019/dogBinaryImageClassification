@@ -5,47 +5,91 @@ projectDirectory = projectDirectory(1:length(mfilename('fullpath'))-8);
 cd(projectDirectory);
 
 %Find and save the directory path dynamically for the DOG image set
-dogDirectory = (strcat(projectDirectory,'\dogTrainingSet'));
+dogTrainingDirectory = (strcat(projectDirectory,'\dogTrainingSet'));
 %Test to make sure the folder loaded properly
-if ~isfolder(dogDirectory)
-    errorMessage = sprintf('Error: The following folder does not exist:\n%s', dogDirectory);
+if ~isfolder(dogTrainingDirectory)
+    errorMessage = sprintf('Error: The following folder does not exist:\n%s', dogTrainingDirectory);
     uiwait(warndlg(errorMessage));
     return;
 end
 
-dogFile = dir(fullfile(dogDirectory, '*.jpg'));
-totalDogImages = numel(dogFile);
+dogTrainingFile = dir(fullfile(dogTrainingDirectory, '*.jpg'));
+totalDogTrainingImages = numel(dogTrainingFile);
 dogTrainingImgSet = zeros(100,51529);
 
-for n = 1:totalDogImages
-    d = fullfile(dogDirectory, dogFile(n).name);
-    dogImages = imread(d); %Reads the folder of dog images
-    resizedImg = imresize(dogImages, [227 227]); %Change the image dimensions
+for n = 1:totalDogTrainingImages
+    d = fullfile(dogTrainingDirectory, dogTrainingFile(n).name);
+    dogTrainingImages = imread(d); %Reads the folder of dog images
+    resizedImg = imresize(dogTrainingImages, [227 227]); %Change the image dimensions
     greyScaleImg = rgb2gray(resizedImg);
     unwrappedImg = greyScaleImg(:);
     dogTrainingImgSet(n,:) = (unwrappedImg)';
 end
 
 %Find and save the directory path dynamically for the CAT image set
-catDirectory = (strcat(projectDirectory,'\catTrainingSet'));
+catTrainingDirectory = (strcat(projectDirectory,'\catTrainingSet'));
 %Test to make sure the folder loaded properly
-if ~isfolder(catDirectory)
-    errorMessage = sprintf('Error: The following folder does not exist:\n%s', catDirectory);
+if ~isfolder(catTrainingDirectory)
+    errorMessage = sprintf('Error: The following folder does not exist:\n%s', catTrainingDirectory);
     uiwait(warndlg(errorMessage));
     return;
 end
 
-catFile = dir(fullfile(catDirectory, '*.jpg'));
-totalCatImages = numel(catFile);
+catTrainingFile = dir(fullfile(catTrainingDirectory, '*.jpg'));
+totalCatTrainingImages = numel(catTrainingFile);
 catTrainingImgSet = zeros(100,51529);
 
-for n = 1:totalCatImages
-    b = fullfile(catDirectory, catFile(n).name);
-    catImages = imread(b); %Reads the folder of cat images
-    resizedImg = imresize(catImages, [227 227]); %Change the image dimensions
+for n = 1:totalCatTrainingImages
+    b = fullfile(catTrainingDirectory, catTrainingFile(n).name);
+    catTrainingImages = imread(b); %Reads the folder of cat images
+    resizedImg = imresize(catTrainingImages, [227 227]); %Change the image dimensions
     greyScaleImg = rgb2gray(resizedImg);
     unwrappedImg = greyScaleImg(:);
     catTrainingImgSet(n,:) = (unwrappedImg)';
 end
 
-save('datafile','dogTrainingImgSet','catTrainingImgSet');
+%Find and save the directory path dynamically for the DOG image set
+dogTestDirectory = (strcat(projectDirectory,'\dogTestSet'));
+%Test to make sure the folder loaded properly
+if ~isfolder(dogTestDirectory)
+    errorMessage = sprintf('Error: The following folder does not exist:\n%s', dogTestDirectory);
+    uiwait(warndlg(errorMessage));
+    return;
+end
+
+dogTestFile = dir(fullfile(dogTestDirectory, '*.jpg'));
+totalDogTestImages = numel(dogTestFile);
+dogTestImgSet = zeros(100,51529);
+
+for n = 1:totalDogTestImages
+    d = fullfile(dogTestDirectory, dogTestFile(n).name);
+    dogTestImages = imread(d); %Reads the folder of dog images
+    resizedImg = imresize(dogTestImages, [227 227]); %Change the image dimensions
+    greyScaleImg = rgb2gray(resizedImg);
+    unwrappedImg = greyScaleImg(:);
+    dogTestImgSet(n,:) = (unwrappedImg)';
+end
+
+%Find and save the directory path dynamically for the CAT image set
+catTestDirectory = (strcat(projectDirectory,'\catTestSet'));
+%Test to make sure the folder loaded properly
+if ~isfolder(catTestDirectory)
+    errorMessage = sprintf('Error: The following folder does not exist:\n%s', catTestDirectory);
+    uiwait(warndlg(errorMessage));
+    return;
+end
+
+catTestFile = dir(fullfile(catTestDirectory, '*.jpg'));
+totalCatTestImages = numel(catTestFile);
+catTestImgSet = zeros(100,51529);
+
+for n = 1:totalCatTestImages
+    b = fullfile(catTestDirectory, catTestFile(n).name);
+    catTestImages = imread(b); %Reads the folder of cat images
+    resizedImg = imresize(catTestImages, [227 227]); %Change the image dimensions
+    greyScaleImg = rgb2gray(resizedImg);
+    unwrappedImg = greyScaleImg(:);
+    catTestImgSet(n,:) = (unwrappedImg)';
+end
+
+save('datafile','dogTrainingImgSet','catTrainingImgSet','dogTestImgSet','catTestImgSet');
