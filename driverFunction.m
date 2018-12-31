@@ -1,13 +1,13 @@
-dataDog = load('datafile.mat', 'dogImgSet');
-dataNotDog = load('datafile.mat', 'beachImgSet');
-X = [dataDog.dogImgSet;dataNotDog.beachImgSet];
+dataDog = load('datafile.mat', 'dogTrainingImgSet');
+dataNotDog = load('datafile.mat', 'catTrainingImgSet');
+X = [dataDog.dogTrainingImgSet;dataNotDog.catTrainingImgSet];
 X = [ones(size(X,1),1) X];
 y = [ones(100,1);zeros(100,1)];
 
 theta = zeros(size(X,2),1);
 lambda = 1;
 
-numIterations = 1000;
+numIterations = 2000;
 
 costPlot = zeros(numIterations,1);
 
