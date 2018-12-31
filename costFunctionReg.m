@@ -9,13 +9,13 @@ m = length(y); % number of training examples
 
 J = 0;
 grad = zeros(size(theta));
-alpha = .0000001;
+alpha = .01;
 
     %compute predictions
     prediction = sigmoid(X * theta);
     
     %regularization component
-    regOffset = (lambda/(2*m)) * sum(theta(2:end) .^ 2);
+    regOffset = (lambda/(2*m)) * sum(theta(2:size(theta)) .^ 2);
 
     %compute cost and return
     J = (1/m) * sum(-y .* log(prediction) - (1-y) .* log(1 - prediction)) + regOffset;
