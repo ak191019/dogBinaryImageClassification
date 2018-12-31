@@ -1,13 +1,13 @@
-dataDog = load('datafile.mat', 'dogTrainingImgSet');
-dataNotDog = load('datafile.mat', 'catTrainingImgSet');
-X = [dataDog.dogTrainingImgSet;dataNotDog.catTrainingImgSet];
+dataDog = load('datafile.mat', 'dogImgSet');
+dataNotDog = load('datafile.mat', 'beachImgSet');
+X = [dataDog.dogImgSet;dataNotDog.beachImgSet];
 X = [ones(size(X,1),1) X];
 y = [ones(100,1);zeros(100,1)];
 
 theta = zeros(size(X,2),1);
 lambda = 1;
 
-numIterations = 2000;
+numIterations = 1000;
 
 costPlot = zeros(numIterations,1);
 
@@ -26,3 +26,18 @@ end
 %hold off; 
 
 p = predict(theta, X);
+
+count = 0;
+for i=1:100
+    if p(i) == 1
+        count=count+1;
+    end
+end
+for i=101:200
+    if p(i) == 0
+        count=count+1;
+    end
+end
+
+percentCorrect = (count / 200) * 100;
+fprintf("Percent Correct: %f", percentCorrect);

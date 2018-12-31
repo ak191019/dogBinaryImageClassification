@@ -5,7 +5,7 @@ projectDirectory = projectDirectory(1:length(mfilename('fullpath'))-8);
 cd(projectDirectory);
 
 %Find and save the directory path dynamically for the DOG image set
-dogDirectory = (strcat(projectDirectory,'\dogTrainingSet'));
+dogDirectory = (strcat(projectDirectory,'\dogSampleSet'));
 %Test to make sure the folder loaded properly
 if ~isfolder(dogDirectory)
     errorMessage = sprintf('Error: The following folder does not exist:\n%s', dogDirectory);
@@ -15,37 +15,39 @@ end
 
 dogFile = dir(fullfile(dogDirectory, '*.jpg'));
 totalDogImages = numel(dogFile);
-dogTrainingImgSet = zeros(100,51529);
+dogImgSet = zeros(100,51529);
 
 for n = 1:totalDogImages
     d = fullfile(dogDirectory, dogFile(n).name);
     dogImages = imread(d); %Reads the folder of dog images
+    %[J, rect] = imcrop(dogImages); %Allows the user to crop(square) the images
     resizedImg = imresize(dogImages, [227 227]); %Change the image dimensions
     greyScaleImg = rgb2gray(resizedImg);
     unwrappedImg = greyScaleImg(:);
-    dogTrainingImgSet(n,:) = (unwrappedImg)';
+    dogImgSet(n,:) = (unwrappedImg)';
 end
 
-%Find and save the directory path dynamically for the CAT image set
-catDirectory = (strcat(projectDirectory,'\catTrainingSet'));
+%Find and save the directory path dynamically for the BEACH image set
+beachDirectory = (strcat(projectDirectory,'\beachSampleSet'));
 %Test to make sure the folder loaded properly
-if ~isfolder(catDirectory)
-    errorMessage = sprintf('Error: The following folder does not exist:\n%s', catDirectory);
+if ~isfolder(beachDirectory)
+    errorMessage = sprintf('Error: The following folder does not exist:\n%s', beachDirectory);
     uiwait(warndlg(errorMessage));
     return;
 end
 
-catFile = dir(fullfile(catDirectory, '*.jpg'));
-totalCatImages = numel(catFile);
-catTrainingImgSet = zeros(100,51529);
+beachFile = dir(fullfile(beachDirectory, '*.jpg'));
+totalBeachImages = numel(beachFile);
+beachImgSet = zeros(100,51529);
 
-for n = 1:totalCatImages
-    b = fullfile(catDirectory, catFile(n).name);
-    catImages = imread(b); %Reads the folder of cat images
-    resizedImg = imresize(catImages, [227 227]); %Change the image dimensions
+for n = 1:totalBeachImages
+    b = fullfile(beachDirectory, beachFile(n).name);
+    beachImages = imread(b); %Reads the folder of beach images
+    %[J, rect] = imcrop(beachImages); %Allows the user to crop(square) the images
+    resizedImg = imresize(beachImages, [227 227]); %Change the image dimensions
     greyScaleImg = rgb2gray(resizedImg);
     unwrappedImg = greyScaleImg(:);
-    catTrainingImgSet(n,:) = (unwrappedImg)';
+    beachImgSet(n,:) = (unwrappedImg)';
 end
 
-save('datafile','dogTrainingImgSet','catTrainingImgSet');
+save('datafile','dogImgSet','beachImgSet');
